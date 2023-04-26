@@ -1,9 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views.generic import ListView
 
 from .models import Vendor, User
 from .form import UserCreate
+
+class UserListView(ListView):
+    model = User
+    template_name = 'user/index.html'
+    
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        return super().get_context_data(**kwargs)
+
 
 def index(request):
     context = {
@@ -18,11 +27,6 @@ def vendor(request):
 
 def vendor_detail(request, vendor_id):
     return HttpResponse("You're looking at vendor %s." % vendor_id)
-
-def user(request):
-    user_list = User.objects.all()
-    context = { "user_list": user_list }
-    return HttpResponse(render(request, "user/index.html", context))
 
 def create_user(request):
     form = UserCreate(request.POST or None)
