@@ -1,0 +1,294 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% comment %} Tailwind Css {% endcomment %}
+        {% tailwind_css %}
+        {% comment %} Font awesome icons {% endcomment %}
+        <link href="/static/css/fontawesome.css" rel="stylesheet">
+        <link href="/static/css/solid.css" rel="stylesheet">
+        <script
+            src="/static/js/jquery-3.6.4.slim.js"
+        >
+        </script>
+        <style>
+            @font-face{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: normal;
+                font-display: swap;
+                src: url('/static/fonts/poppins/Poppins-Regular.ttf');
+            }
+            @font-face{
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: bold;
+                font-display: swap;
+                src: url('/static/fonts/poppins/Poppins-Medium.ttf');
+            }
+
+            :root {
+                --success: #01c853;
+                --danger: #dc3545;
+                --info: #17a2b8;
+                --warning: #ffc107;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex h-screen w-screen overflow-x-hidden relative">
+            <div id="sidebar-wrapper" class="h-screen bg-blue-200 shrink-0 overflow-y-auto transition-all duration-300">
+                <div class="flex justify-between items-center w-full p-4">
+                    {% load static %}
+                    <img src="{% static 'images/blazon_logo.svg' %}" alt="logo" class="transition-all duration-300 w-52"/>
+                    <i id="menu-btn" class="fa-solid fa-arrow-left text-2xl cursor-pointer transition-all duration-300"></i>
+                </div>
+                <div class="w-full">
+                    <div id="search-bar" class="relative w-full mb-3">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                        </div>
+                        <input type="text" id="simple-search" class="bg-gray-50 border-r-0 border-l-0 border-t-0 border-b-2 shadow-none outline-none border-black  text-lg block w-full pl-12 p-2.5  bg-transparent font-['Poppins'] placeholder:text-black focus:ring-transparent focus:border-black" placeholder="Search" required>
+                    </div>
+                    <ul id="sidebar" class="flex flex-col gap-2 w-full px-5">
+                        <li>
+                            <a href="{% url 'vendor:home' %}" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-home text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Home
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'vendor:user' %}" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-user text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        User
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'vendor:vendor' %}" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-store text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Vendor
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-bag-shopping text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Products
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-heart text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Wishlist
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-cart-shopping text-xl w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Cart
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col w-full overflow-x-hidden bg-[#f4f6f9]">
+                <nav class="flex justify-end items-center w-full h-20 bg-white px-4 drop-shadow-md shrink-0">
+                    <ul class="flex items-center justify-center gap-4">
+                        <li>
+                            <select id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-md font-['Poppins'] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                                <option selected>Choose a role</option>
+                                <option value="admin">Admin</option>
+                                <option value="emp">Employee</option>
+                                <option value="hr">hr</option>
+                            </select>
+                        </li>
+                        <li id="profile-popup" class="relative flex gap-2 justify-center items-center cursor-pointer">
+                            <span class="text-lg font-bold font-['Poppins'] hidden md:inline ">naveenkumar@gmail.com</span>
+                            <div id="profile-icons">
+                                <i class="fa-solid fa-circle-user text-2xl"></i>
+                                <i class="fa-solid fa-angle-down mr-3"></i>
+                            </div>
+                            <div data-popper-arrow></div>
+                            <ul id="profile-modal" class="absolute flex-col justify-center items-start p-4 font-['Poppins'] font-bold hidden top-[125%] bg-white w-full rounded-sm gap-2 drop-shadow-lg z-[9999]">
+                                <li class="flex gap-4 items-center justify-start hover:text-blue-600">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span class="uppercase">Profile<span>
+                                </li>
+                                <li class="flex gap-4 items-center justify-start hover:text-blue-600">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <span class="uppercase">Change password<span>
+                                </li>
+                                <li class="flex gap-4 items-center justify-start hover:text-blue-600">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    <span class="uppercase">Logout<span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="m-4 p-6 bg-white w-[calc(100% - 19rem)] h-fit" >
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% block script %}{% endblock script %}
+        <script>
+            window.addEventListener("resize", function(event) {
+                if(event.target.innerWidth < 1000){
+                    $("#sidebar-wrapper").addClass("fixed top-0 left-0 bottom-0 z-50")
+                    minimizeSidebar()
+                }else{
+                    $("#sidebar-wrapper").removeClass("fixed top-0 left-0 bottom-0 z-50")
+                }
+            })
+
+            function onChangeText(event){
+                const value = event.target.value
+                $("ul[id='sidebar'] li").each(function() {
+                    const listValue = $(this).find("a div span").text().trim().toLowerCase()
+                    if(listValue.includes(value.toLowerCase()))
+                        $(this).removeClass("hidden")
+                    else
+                        $(this).addClass("hidden")
+                })
+            }
+
+            document.getElementById("simple-search").addEventListener("input", onChangeText)
+
+            $(document).ready(function() {
+
+                const path = window.location.pathname
+                if(path.startsWith("/vendor")){
+                    setActivePage('/vendor/')
+                }else if(path == "/"){
+                    setActivePage('/')
+                }else if(path.startsWith("/user")){
+                    setActivePage('/user/')
+                }
+
+                const menuButton = $('#menu-btn')
+
+                menuButton.click(function() {
+                    if(menuButton.hasClass("fa-arrow-left")){
+                        window.localStorage.setItem("isSidebarMinimized", "true")
+                        minimizeSidebar()
+                    }else {
+                        window.localStorage.setItem("isSidebarMinimized", "false")
+                        menuButton.removeClass("fa-bars")
+                        menuButton.addClass("fa-arrow-left")
+
+                        $('#search-bar').removeClass('hidden')
+
+                        // Changing the size of sidebar
+                        if(window.innerWidth < 1000){
+                            $('#sidebar-wrapper').removeClass('w-20').addClass('fixed w-72 top-0 left-0 bottom-0 z-50')
+                        }else{
+                            $('#sidebar-wrapper').removeClass('w-20').addClass('w-72')
+                        }
+
+
+                        // hiding the logo
+                        $('div[id="sidebar-wrapper"] div img').removeClass("hidden")
+
+                        // getting the span
+                        $("ul[id='sidebar'] li a div").each(function() {
+                            $(this).removeClass("hidden")
+                        })
+
+                        // Centering the icons
+                        $('div[id="sidebar-wrapper"] div').addClass("justify-between").removeClass("justify-center")
+                        $("ul[id='sidebar'] li a").each(function() {
+                            $(this).removeClass("justify-center")
+                        })
+                    }
+                })
+
+                $("#profile-popup").mouseenter(function() {
+                    $('#profile-icons').addClass("text-blue-600")
+                })
+
+                $("#profile-popup").mouseleave(function() {
+                    $('#profile-icons').removeClass("text-blue-600")
+                })
+
+
+                $("#profile-popup").click(function() {
+                    if($('#profile-modal').hasClass("hidden")){
+                        $('#profile-icons').addClass("text-blue-600")
+                        $("#profile-modal").removeClass("hidden").addClass("flex")
+                    }else {
+                        $('#profile-icons').removeClass("text-blue-600")
+                        $("#profile-modal").addClass("hidden").removeClass("flex")
+                    }
+                })
+                
+            })
+
+            function setActivePage(path){
+                $(`ul[id='sidebar'] li a[href='${path}']`).each(function() {
+                    $(this).removeClass("border-blue-200").addClass("border-black")
+                })
+            }
+
+            function minimizeSidebar(){
+                const menuButton = $('#menu-btn')
+                menuButton.removeClass("fa-arrow-left")
+                menuButton.addClass("fa-bars")
+
+
+                $('#search-bar').addClass('hidden')
+
+                // Changing the size of sidebar
+                if(window.innerWidth < 1000){
+                    $('#sidebar-wrapper').addClass('w-20').removeClass("fixed w-72 top-0 left-0 bottom-0 z-50")
+                }else {
+                    $('#sidebar-wrapper').addClass('w-20').removeClass("w-72")
+                }
+
+                // hiding the logo
+                $('div[id="sidebar-wrapper"] div img').addClass("hidden")
+
+                // getting the span
+                $("ul[id='sidebar'] li a div").each(function() {
+                    $(this).addClass("hidden")
+                })
+
+                // Centering the icons
+                $('div[id="sidebar-wrapper"] div').removeClass("justify-between").addClass("justify-center")
+                $("ul[id='sidebar'] li a").each(function() {
+                    $(this).addClass("justify-center")
+                })
+            }
+        </script>
+    </body>
+</html>

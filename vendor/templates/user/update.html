@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create User 
+{% endblock title %}
+
+{% block content %}
+    <h1 class="text-2xl m-2 text-neutral-900 font-medium font-['Poppins']">
+        Please enter the user details
+    </h1>
+    <div class="my-4">
+        <form action={% url 'vendor:update_user' user_id %} method="POST" autocomplete="off">
+            {% csrf_token %}
+            {% crispy form %}   
+            <a id="cancel-link" href="{% url 'vendor:user' %}" class="py-2 px-6 bg-[var(--warning)] rounded text-white font-bold font-['Poppins'] cursor-pointer hidden">
+                Cancel
+            </a>
+        </form>
+    </div>  
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            $("#cancel-btn").click(function() {
+                document.getElementById("cancel-link").click()
+            })
+        })
+    </script>
+{% endblock script %}
