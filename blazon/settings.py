@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tailwind',
     'crispy_forms',
     'crispy_tailwind',
+    "debug_toolbar",
     'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +54,7 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,6 +85,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blazon.wsgi.application'
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
