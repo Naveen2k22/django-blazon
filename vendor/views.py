@@ -1,7 +1,9 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView
+from django.contrib import messages
 
 from .models import Vendor, User
 from .form import UserCreate
@@ -10,14 +12,20 @@ class UserListView(ListView):
     model = User
     template_name = 'user/index.html'
     
-    def get_context_data(self, **kwargs: any) -> dict[str, any]:
-        return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs: any) -> Dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "table_headers" :["Firstname", "Lastname", "Address", "Email", "Phone"],
+            "data_keys":["f_name", "l_name", "address", "email", "phone"]
+        })
+        return context
 
 
 def index(request):
     context = {
-        "message": "Welcome to CloudBerry360 :)"
+        "message": "Welcome to CloudBerry360"
     }
+    messages.info(request, "Greetings !!!")
     return HttpResponse(render(request, "index.html", context))
 
 def vendor(request):
@@ -29,7 +37,7 @@ def vendor_detail(request, vendor_id):
     return HttpResponse("You're looking at vendor %s." % vendor_id)
 
 def create_user(request):
-    form = UserCreate(request.POST or None)
+    form = UserForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -43,7 +51,7 @@ def update_user(request, user_id):
         user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
         return HttpResponseRedirect(reverse("vendor:user"))
-    form = UserCreate(request.POST or None, instance = user)
+    form = UserForm(request.POST or None, instance = user)
     
     if form.is_valid():
         form.save()

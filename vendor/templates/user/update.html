@@ -2,10 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Create User 
+    Update User 
 {% endblock title %}
 
 {% block content %}
+    {% include "../utils/messages.html" with messages=messages %}
     <h1 class="text-2xl m-2 text-neutral-900 font-medium font-['Poppins']">
         Please enter the user details
     </h1>
