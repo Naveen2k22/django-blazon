@@ -5,5 +5,6 @@
 {% endblock title %}
 
 {% block content %}
+    {% include "./utils/messages.html" with messages=messages %}
     <h1 class="text-2xl text-center font-bold font-['Poppins'] m-2">{{ message }}</h1>
 {% endblock content %}

@@ -19,6 +19,8 @@
             src={% static 'js/jquery.js' %}
         >
         </script>
+        {% block external_js %}
+        {% endblock external_js %}
         <style>
             @font-face{
                 font-family: 'Poppins';
@@ -75,6 +77,16 @@
                                 <div class="flex justify-between items-center transition-all duration-300">
                                     <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
                                         User
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'vendor:desig' %}" class="flex items-center gap-x-4 p-2 text-sm rounded-md border-2 border-blue-200 cursor-pointer hover:border-black">
+                                <i class="fa-solid fa-swatchbook text-lg w-6 flex items-center justify-center"></i>
+                                <div class="flex justify-between items-center transition-all duration-300">
+                                    <span class="text-lg font-bold whitespace-nowrap font-['Poppins']">
+                                        Designation
                                     </span>
                                 </div>
                             </a>
@@ -190,11 +202,13 @@
 
                 const path = window.location.pathname
                 if(path.startsWith("/vendor")){
-                    setActivePage('/vendor/')
+                    setActivePage('/vendor')
                 }else if(path == "/"){
                     setActivePage('/')
                 }else if(path.startsWith("/user")){
-                    setActivePage('/user/')
+                    setActivePage('/user')
+                }else if(path.startsWith("/desig")){
+                    setActivePage('/desig')
                 }
 
                 const menuButton = $('#menu-btn')

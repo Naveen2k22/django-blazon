@@ -43,7 +43,24 @@ module.exports = {
         '../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'success': '#01c853',
+                'danger': '#dc3545',
+                'info': '#17a2b8',
+                'warning': '#ffc107',
+                'error': '#dc3545'
+            },
+            animation: {
+                'fadeOut':'fadeOut 4s ease-in-out'
+            },
+            keyframes: {
+                'fadeOut': {
+                    '0%': {},
+                    '100%': { 'display': 'hidden' }
+                }
+            }
+        },
     },
     plugins: [
         /**

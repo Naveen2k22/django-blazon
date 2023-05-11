@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tailwind',
     'crispy_forms',
     'crispy_tailwind',
+    'djangoformsetjs',
     "debug_toolbar",
     'django_browser_reload',
     'django.contrib.admin',

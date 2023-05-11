@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Designation
+{% endblock title %}
+
+{% block content %}
+    {% include "../utils/messages.html" with messages=messages %}
+    {% include "../utils/list.html" with title="Designation"   create="vendor:create_desig" edit="vendor:update_desig" delete="vendor:delete_desig" delete_key="title" table_headers=table_headers data_list=desig_list list_empty_text="No Designations at the time"  %}
+{% endblock content %}
+
+{% block script %}
+<script>
+    function openModal(title, delete_url){
+        console.log("delete_url", delete_url)
+        $("#delete-user").attr("href", delete_url)
+        $("#popup-message").text(`Are you sure you want to delete ${title}?`)
+        $("#popup-modal").removeClass("hidden").addClass("flex")
+    }
+
+    function closeModal(){
+        $("#popup-modal").addClass("hidden").removeClass("flex")
+    }
+</script>
+{% endblock script %}

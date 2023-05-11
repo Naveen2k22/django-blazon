@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    Create Designation 
+{% endblock title %}
+
+{% block external_js %}
+<script
+    src={% static 'js/jquery.formset.js' %}
+>
+</script>
+{% endblock external_js %}
+
+{% block content %}
+    {% include "../utils/messages.html" with messages=messages %}
+    <h1 class="text-2xl my-2 text-gray-700 font-bold font-['Poppins']">
+        Please enter the designation details
+    </h1>
+    <div class="my-4 font-['Poppins']">
+        <form action={% url 'vendor:create_desig' %} method="POST" autocomplete="off">
+            {% csrf_token %}
+            {% crispy form %}
+
+            <h2 class="text-xl my-2 text-gray-700 font-bold font-['Poppins']">
+                Designation Grades
+            </h2>
+            <div class="grid grid-cols-4 gap-4 text-md font-bold text-gray-700 uppercase bg-blue-200 border border-blue-200 px-4">
+                <h2 class="py-3">Grade</h2>
+                <h2 class="py-3">From amount</h2>
+                <h2 class="py-3">To amount</h2>
+                <h2 class="py-3">Action</h2>
+            </div>
+            {{ formset.media }}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {% crispy form %}
+            {% endfor %}
+            <div class="flex justify-center items-center gap-4 my-4">
+                <button type="submit" class="py-2 px-6 bg-[var(--success)] rounded text-white font-bold font-['Poppins'] cursor-pointer">
+                    Save
+                </button>
+                <a href="{% url 'vendor:desig' %}" class="py-2 px-6 bg-[var(--warning)] rounded text-white font-bold font-['Poppins'] cursor-pointer ">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $(function(){
+            $('.desig-form').formset({
+                prefix:'{{formset.prefix}}',
+                addCssClass: "font-bold text-info",
+                deleteCssClass: "delete-btn text-danger font-bold"
+            })
+        })
+    </script>
+{% endblock script %}
