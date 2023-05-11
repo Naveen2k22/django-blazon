@@ -21,5 +21,23 @@
 {% endif %}
 
 <script>
-    
+    $(document).ready(function () {
+        $("#messages").children().each(function(index) {
+            const liParent = this
+            $(this).children("button")[0].click(function() {
+                console.log("clicked")
+                $(liParent).remove()
+            })
+
+            $(this).delay(3000+3000*index).animate({
+                    opacity: '0'
+                },
+                2000,'swing', function () {
+                    $(this).remove()
+                }
+            )
+        })
+
+
+    })
 </script>
