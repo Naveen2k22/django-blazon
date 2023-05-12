@@ -52,6 +52,7 @@ def create_user(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            messages.success(request, "Successfully created the User!")
             return HttpResponseRedirect(reverse("vendor:user"))
     context = { "form":form }    
     return HttpResponse(render(request, 'user/create.html', context))
@@ -65,6 +66,7 @@ def create_desig(request):
         for grade in grades:
             grade.desig = desig
             grade.save()
+        messages.success(request, "Successfully created the Designation!")
         return HttpResponseRedirect(reverse("vendor:desig"))
     context = { "form":form, "formset":formset }
     return HttpResponse(render(request, 'desig/create.html', context))
@@ -89,6 +91,7 @@ def update_desig(request, desig_id):
             for new_grade in grades_formset.new_objects:
                 new_grade.desig = desig
                 new_grade.save()
+            messages.success(request, "Successfully updated the Designation!")
             return HttpResponseRedirect(reverse("vendor:desig"))
     context = { "desig_form":desig_form, "grades_formset": grades_formset, "desig_id": desig_id}
     return HttpResponse(render(request, 'desig/update.html', context))
@@ -99,6 +102,7 @@ def delete_desig(request, desig_id):
     except Desig.DoesNotExist:
         return HttpResponseRedirect(reverse("vendor:desig"))
     desig.delete()
+    messages.error(request, "Successfully deleted the Designation!")
     return HttpResponseRedirect(reverse("vendor:desig"))
 
 def update_user(request, user_id):
@@ -110,6 +114,7 @@ def update_user(request, user_id):
 
     if form.is_valid():
         form.save()
+        messages.success(request, "Successfully updated the User!")
         return HttpResponseRedirect(reverse("vendor:user"))
     else:
         context = { "form": form, "user_id": user_id }
@@ -121,4 +126,5 @@ def delete_user(request, user_id):
     except User.DoesNotExist:
         return HttpResponseRedirect(reverse("vendor:user"))
     user.delete()
+    messages.error(request, "Successfully deleted the User!")
     return HttpResponseRedirect(reverse("vendor:user"))
